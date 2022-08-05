@@ -17,14 +17,14 @@ tspan = [0 p.endtime];     % max. time domain (h)
 c0 = [0 0];         % Initial concentration in each compartment
 tcourse=0:.01:tspan(2);
 
-
+options = odeset('MaxStep',0.5)
 p.regime=2;
 p.regime;
-[t_vals_2,c_vals_2] = ode45(@derivatives, tspan, c0, [], p);
+[t_vals_2,c_vals_2] = ode45(@derivatives, tspan, c0, options, p);
 timedose2=r(tcourse,p);
 
 p.regime=1;
-[t_vals_1,c_vals_1] = ode45(@derivatives, tspan, c0, [], p);
+[t_vals_1,c_vals_1] = ode45(@derivatives, tspan, c0, options, p);
 timedose1=r(tcourse,p);
 
 
@@ -33,9 +33,9 @@ f.Position = [100 100 1050 400];
 xlim_1=[0 tspan(2)];
 xlim_1=[0 190];
 subplot(3, 1, 1)
-plot(tcourse,timedose2,'r')
+plot(tcourse,timedose1,'b','LineWidth',1 )
 hold on
-plot(tcourse,timedose1,'b')
+plot(tcourse,timedose2,'r')
 legend('regime2','regime1')
 ylabel('\fontsize{13}Rate [mg/h]')
 xlim(xlim_1)
@@ -64,7 +64,7 @@ end
 function rt = r(t,p)
     switch p.regime
         case 1
-        interval=12;
+        interval=72;
         duration=2;
         number_of_intervals=p.endtime/interval;
         sum_dosing=0;
@@ -75,11 +75,11 @@ function rt = r(t,p)
         
 
         case 2
+        interval=36;
+        duration=2;
 %         interval=24;
-%         duration=2;
-        interval=24;
-        duration=4;
-        number_of_intervals=p.endtime/interval
+%         duration=4;
+        number_of_intervals=p.endtime/interval;
 %         while 0<t & t<2
 %         number_of_intervals
 %         end 
@@ -87,7 +87,7 @@ function rt = r(t,p)
         sum_dosing=0;
         for counter1=0:1:number_of_intervals
             sum_dosing=sum_dosing+(counter1*interval<t & t<counter1*interval+duration);
-            rt = 100/2*sum_dosing;
+            rt = 2*100/2*sum_dosing;
         end
         
         otherwise
