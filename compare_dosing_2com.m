@@ -64,7 +64,7 @@ end
 function rt = r(t,p)
     switch p.regime
         case 1
-        interval=12;
+        interval=72;
         duration=2;
         number_of_intervals=p.endtime/interval;
         sum_dosing=0;
@@ -75,11 +75,11 @@ function rt = r(t,p)
         
 
         case 2
+        interval=36;
+        duration=2;
 %         interval=24;
-%         duration=2;
-        interval=24;
-        duration=4;
-        number_of_intervals=p.endtime/interval
+%         duration=4;
+        number_of_intervals=p.endtime/interval;
 %         while 0<t & t<2
 %         number_of_intervals
 %         end 
@@ -87,7 +87,7 @@ function rt = r(t,p)
         sum_dosing=0;
         for counter1=0:1:number_of_intervals
             sum_dosing=sum_dosing+(counter1*interval<t & t<counter1*interval+duration);
-            rt = 100/2*sum_dosing;
+            rt = 2*100/2*sum_dosing;
         end
         
         otherwise
