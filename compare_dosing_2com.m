@@ -33,9 +33,9 @@ f.Position = [100 100 1050 400];
 xlim_1=[0 tspan(2)];
 xlim_1=[0 190];
 subplot(3, 1, 1)
-plot(tcourse,timedose2,'r')
+plot(tcourse,timedose1,'b','LineWidth',1 )
 hold on
-plot(tcourse,timedose1,'b')
+plot(tcourse,timedose2,'r')
 legend('regime2','regime1')
 ylabel('\fontsize{13}Rate [mg/h]')
 xlim(xlim_1)
