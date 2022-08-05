@@ -17,14 +17,14 @@ tspan = [0 p.endtime];     % max. time domain (h)
 c0 = [0 0];         % Initial concentration in each compartment
 tcourse=0:.01:tspan(2);
 
-
+options = odeset('MaxStep',0.5)
 p.regime=2;
 p.regime;
-[t_vals_2,c_vals_2] = ode45(@derivatives, tspan, c0, [], p);
+[t_vals_2,c_vals_2] = ode45(@derivatives, tspan, c0, options, p);
 timedose2=r(tcourse,p);
 
 p.regime=1;
-[t_vals_1,c_vals_1] = ode45(@derivatives, tspan, c0, [], p);
+[t_vals_1,c_vals_1] = ode45(@derivatives, tspan, c0, options, p);
 timedose1=r(tcourse,p);
 
 
