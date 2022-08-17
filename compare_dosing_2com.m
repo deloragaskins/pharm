@@ -97,6 +97,9 @@ function [t_vals_whole, c_vals_whole, r_vals]=setandrunODE(p)
             break
         end
         [t_vals,c_vals,te,ye,ie]= ode15s(@derivatives, tspan, c0, options, p);
+        disp('next step')
+        disp(ie)
+        disp(t_vals(end))
         tspan = [te(end):stepsize: p.endtime]; 
         c0 = [ye(end,1) ye(end,2)];
     
@@ -148,7 +151,7 @@ function [value,isterminal,direction] = dose_events(t,c,p)
     direction(2,1) = 1;
     
     %detect time to stop infusion 
-    value(3,1) = mod(t,p.interval)-p.duration;
+    value(3,1) = mod(t,p.interval)-p.duration
     isterminal(3,1) = 1;
     direction(3,1) =1 ;
 
