@@ -70,7 +70,7 @@ xlabel('\fontsize{13}Time [hour]')
 ylabel('\fontsize{13}Concentration [mg/L]')
 %set(gca,"FontSize",10)
 
-saveas(gcf,'concentration_profiles.png')
+saveas(gcf,'compare_dosing_2com_plot.png')
 end
 
 
