@@ -3,16 +3,26 @@ function noncompartmental_analysis()
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %parameters
 % data genterating parameters
+dg.dose_IV=25
+dg.dose_PO=25
+%-----------
+dg.Vd=1
 dg.k_elim= 0.5;
 dg.ka=1
 dg.c_0=15
 dg.sampling_times=horzcat([15/60:15/60:1],[1.5:30/60:6]);
-dg.drugamt=25
 dg.noise_on=1
 dg.mu=0
 dg.sigma1=0.25
 dg.sigma2=0.3
 %%%%%%%%%%%%%%%%
+% calculated and fitted pk parameters
+pk.k_elim= [];
+pk.c_0=[];
+pk.IV_AUC=[];
+pk.Vd = [];
+pk.t_half=[];
+pk.CL=[];
 
 
 
@@ -24,12 +34,32 @@ dg.sigma2=0.3
 [t2,y2] = concentration_profile_PO(dg);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%fit IV curve
-curve_fit_params=IV_curve_fitter(t1,y1)
+%fit IV curve and calculate pk params
+IVcurve_fit_params=IV_curve_fitter(t1,y1)
+pk.k_elim= -IVcurve_fit_params.k_elim;
+pk.c_0=exp(IVcurve_fit_params.c_0);
+
+%fitting function
+IVfit = @(t) exp(IVcurve_fit_params.c_0 - IVcurve_fit_params.k_elim*t);
+
+%calculate AUC
+pk.IV_AUC = integral(IVfit,0,Inf);
+
+%calculate Volume of distribution
+pk.Vd = dg.dose_IV/pk.c_0;
+
+%calculate half life
+% Ct = c_0 exp(-k_elim*t)
+% (0.5c_0)/c_0 =  exp(-k_elim*t_0.5)
+% ln((0.5c_0)/c_0)/-k_elim= t_0.5
+pk.t_half=log(1/2)/-k_elim
+
+%calculate clearance
+pk.CL=pk.Vd*pk.k_elim
+
+%for plotting
 IVfit_t=[0:.1:8]
-IVfit_y=exp(curve_fit_params.c_0+curve_fit_params.k_elim*IVfit_t)
-
-
+IVfit_y=IVfit(IVfit_t)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -67,7 +97,7 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [t,y] = concentration_profile_IV(params)
-    y_0=params.c_0;
+    y_0=params.dose_IV/params.Vd;
     t=params.sampling_times;
     y=y_0*exp(-params.k_elim*t);
     if params.noise_on==1
@@ -77,7 +107,7 @@ function [t,y] = concentration_profile_IV(params)
 end
 
 function [t,y] = concentration_profile_PO(params)
-    y_0 =[params.drugamt 0]; 
+    y_0 =[params.dose_PO 0]; 
     options = odeset('RelTol',1e-12, 'AbsTol',[1e-12 1e-12]);
     tspan=params.sampling_times
     [t,y]= ode45(@derivatives, tspan, y_0, options, params);
