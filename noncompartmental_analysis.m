@@ -23,7 +23,7 @@ pk.IV_AUC=[];
 pk.Vd = [];
 pk.t_half=[];
 pk.CL=[];
-pk.OP_AUC=[];
+pk.P0_AUC=[];
 pk.C_max=[];
 pk.t_max=[];
 pk.F=[];
@@ -70,14 +70,14 @@ IVfit_y=IVfit(IVfit_t)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %calculate AUC
-pk.OP_AUC= trapz(t2,y2(:,2)) %by trapezoidal rule
+pk.PO_AUC= trapz(t2,y2(:,2)) %by trapezoidal rule
 
 %calculate Cmax and Tmax
 [pk.C_max, I_max]= max(y2(:,2))
 pk.t_max=t2(I_max)
 
 % calculate bioavailibility
-pk.F=100*(pk.IV_AUC/dg.dose_IV)(pk.PO_AUC/dg.dose_PO)/(pk.IV_AUC/dg.dose_IV)
+pk.F=100*(pk.PO_AUC/dg.dose_PO)/(pk.IV_AUC/dg.dose_IV)
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
