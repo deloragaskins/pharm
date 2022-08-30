@@ -23,6 +23,10 @@ pk.IV_AUC=[];
 pk.Vd = [];
 pk.t_half=[];
 pk.CL=[];
+pk.OP_AUC=[];
+pk.C_max=[];
+pk.t_max=[];
+pk.F=[];
 
 
 
@@ -43,7 +47,8 @@ pk.c_0=exp(IVcurve_fit_params.c_0);
 IVfit = @(t) exp(IVcurve_fit_params.c_0 - IVcurve_fit_params.k_elim*t);
 
 %calculate AUC
-pk.IV_AUC = integral(IVfit,0,Inf);
+pk.IV_AUC = integral(IVfit,0,Inf);%by fitted curve
+pk.IV_AUC= trapz(t1,y1) %by trapezoidal rule
 
 %calculate Volume of distribution
 pk.Vd = dg.dose_IV/pk.c_0;
@@ -52,7 +57,7 @@ pk.Vd = dg.dose_IV/pk.c_0;
 % Ct = c_0 exp(-k_elim*t)
 % (0.5c_0)/c_0 =  exp(-k_elim*t_0.5)
 % ln((0.5c_0)/c_0)/-k_elim= t_0.5
-pk.t_half=log(1/2)/-k_elim
+pk.t_half=log(1/2)/-pk.k_elim
 
 %calculate clearance
 pk.CL=pk.Vd*pk.k_elim
@@ -60,6 +65,20 @@ pk.CL=pk.Vd*pk.k_elim
 %for plotting
 IVfit_t=[0:.1:8]
 IVfit_y=IVfit(IVfit_t)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%calculate AUC
+pk.OP_AUC= trapz(t2,y2(:,2)) %by trapezoidal rule
+
+%calculate Cmax and Tmax
+[pk.C_max, I_max]= max(y2(:,2))
+pk.t_max=t2(I_max)
+
+% calculate bioavailibility
+pk.F=100*(pk.IV_AUC/dg.dose_IV)(pk.PO_AUC/dg.dose_PO)/(pk.IV_AUC/dg.dose_IV)
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
