@@ -11,7 +11,7 @@ function two_dosing_regimes()
 % p.ka= 0.7
 % p.F=0.5
 
-p.CL   = 0.3;     % central clearance
+p.CL   = .693/24;     % central clearance
 p.V1   = 1;    % volume of distribution in central compartment 
 p.Q    = 0.15;   % inter-compartmental clearance
 p.V2   = 1;   % volume of distribution peripheral compartment
