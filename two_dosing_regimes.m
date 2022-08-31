@@ -33,7 +33,7 @@ p.interval=[];%%% prev value =24/3
 
 p.endtime=24*7*6; %h (6 weeks)
 
-[p.interval, p.maintence_dose,max_dose] = dosing_chooser_blank( @derivatives,p.min_effective_conc, p.max_tolerated_conc,p)
+[p.interval, p.maintence_dose,max_dose] = dosing_chooser( @derivatives,p.min_effective_conc, p.max_tolerated_conc,p)
 p.load_dose=max_dose
 
 for regime=[1 2]
@@ -131,8 +131,38 @@ dcdt = [ - 1*p.ka*a,
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [dose_interval, dose_amount,max_dose] = dosing_chooser_blank(derivativefunction, min_effective_conc, max_tolerated_conc,p)
-    dose_interval=24/3
-    dose_amount=2000
-    max_dose=3000
+function [dose_interval, dose_amount,max_dose] = dosing_chooser(derivativefunction, min_effective_conc, max_tolerated_conc,p)    
+    t_end=72
+    tspan = [0 72];     % max. time domain (h)
+    f0 = figure;
+    unit_conv=24
+    xlim_1=[0 72/unit_conv]
+    plottime= linspace(0, t_end,100)
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    doses=[0 10 100 1000 10000]
+    doses=[1 2 4 6 8 10]*1000
+    doses=2000+ [0 1 2 3 4 5 6 7 8 9 10 ]*100
+    doses=2100+[1 2 3 4 5 6 7 8 9 10]*10
+    doses=2150
+    max_dose=2150
+    for initial_dose = doses
+        c0 =[initial_dose,0, 0]
+        options = odeset('RelTol',1e-12, 'AbsTol',[1e-12 1e-12 1e-12]);
+        [t_vals,c_vals]= ode45(@derivatives, tspan, c0, options, p)
+        
+        plot (t_vals,c_vals(:,2),'-k')
+        hold on
+        plot (t_vals,c_vals(:,3),'-b')
+        plot (t_vals,c_vals(:,1),'-r')
+
+    end
+    plot(plottime,(p.max_tolerated_conc)*ones(size(plottime)),'-c','DisplayName','threshold span')
+    plot(plottime,(p.min_effective_conc)*ones(size(plottime)),'-c','DisplayName','threshold span')
+    ylim([0 1.1*max_tolerated_conc])
+
+    %max_dose
+    dose_interval=24/2
+    dose_amount=max_dose/5
+    
 end 
