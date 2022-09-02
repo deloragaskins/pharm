@@ -31,13 +31,13 @@ function [dose_interval, dose_amount,max_dose] = dosing_chooser(derivativefuncti
 %     doses=2100+[1 2 3 4 5 6 7 8 9 10]*10;
     doses=2150
     %%%%%%%%%%%%%%%%%%%
-    %sweeping for this parameter
+    %sweeping for this parameteclosr 
     max_dose=2150
     %%%%%%%%%%%%%%%%
     for initial_dose = doses
         c0 =[initial_dose,0, 0]
         options = odeset('RelTol',1e-12, 'AbsTol',[1e-12 1e-12 1e-12]);
-        [t_vals,c_vals]= ode45(@derivatives, tspan1, c0, options, p)
+        [t_vals,c_vals]= ode45(derivativefunction, tspan1, c0, options, p)
         
         plot (t_vals,c_vals(:,2),'-k')
         hold on
@@ -70,7 +70,7 @@ function [dose_interval, dose_amount,max_dose] = dosing_chooser(derivativefuncti
     options = odeset('RelTol',1e-12, 'AbsTol',[1e-12 1e-12 1e-12]);
   
     while tspan2(1)<t_end_2
-        [t_vals,c_vals]= ode45(@derivatives, tspan2, c0, options, p);
+        [t_vals,c_vals]= ode45(derivativefunction, tspan2, c0, options, p);
         tspan2 = [t_vals(end) t_vals(end)+dose_interval]; 
         c0 = [c_vals(end,1)+dose_amount, c_vals(end,2), c_vals(end,3)];
         t_vals_whole=vertcat(t_vals_whole,t_vals);
