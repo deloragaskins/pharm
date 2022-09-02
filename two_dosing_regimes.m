@@ -6,6 +6,23 @@ addpath(genpath('./Toolbox')) %required or dosing chooser and derivatives functi
 
 
 %model parameters
+% % % % % p.CL   = 5;     % central clearance
+% % % % % p.V1   = 60;    % volume of distribution in central compartment 
+% % % % % p.Q    = 2.17;   % inter-compartmental clearance
+% % % % % p.V2   = 4.23;   % volume of distribution peripheral compartment
+% % % % % p.k    = p.CL/p.V1;  % rate constant of elimination              
+% % % % % p.k12  = p.Q/p.V1;   % rate constant from central to peripheral             
+% % % % % p.k21  = p.Q/p.V2;   % rate constant from peripheral to central   
+% % % % % p.ka= 15
+% % % % % p.regime=1;
+% % % % % p.endtime=24*7*6; %h
+% % % % % p.load_dose=1000
+% % % % % p.maintence_dose=100
+
+
+
+
+
 % p.CL   = 0.01;     % central clearance
 % p.V1   = 1;    % volume of distribution in central compartment 
 % p.Q    = 0.15;   % inter-compartmental clearance
