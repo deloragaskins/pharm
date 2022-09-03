@@ -2,7 +2,7 @@ function noncompartmental_analysis()
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %parameters
-% data genterating parameters
+% data generating parameters
 dg.dose_IV=25
 dg.dose_PO=25
 %-----------
@@ -190,8 +190,9 @@ function fitted_params=IV_curve_fitter(t,y)
 
     xlabel('\fontsize{13}Time [hours]')
     ylabel('\fontsize{13}Concentration [mg/L]')
-end
+    saveas(gcf,'noncompartmental_analysis_plot.png')
 
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function dydt = derivatives(t, y, params)
 dydt = [-params.ka*y(1), 
