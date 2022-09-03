@@ -7,7 +7,7 @@ function two_dosing_regimes()
 addpath(genpath('./Toolbox')) %required for dosing chooser and derivatives function
 derivativefunction=@DERIVS_2comp_LinearAbs_Linear_Elim__rate_constants;
 
-%model parameters%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%model parameters
 % % % % % p.CL   = 5;     % central clearance
 % % % % % p.V1   = 60;    % volume of distribution in central compartment 
 % % % % % p.Q    = 2.17;   % inter-compartmental clearance
@@ -41,8 +41,7 @@ p.load_dose=[];
 p.interval=[];%%% prev value =24/3 
 
 p.endtime=24*7*6; %h (6 weeks)
-
-%obtain concentration vs time for 2 regimes %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 [p.interval, p.maintence_dose,max_dose] = dosing_chooser( derivativefunction,p.min_effective_conc, p.max_tolerated_conc,deriv_params);
 p.load_dose=max_dose;
 
@@ -72,17 +71,16 @@ for regime=[1 2]
     
 end
 
-%plot!!!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 f = figure;
 
 f.Position = [100 100 1050 400];
 unit_conv=24;
 xlim_1=[0 p.endtime/unit_conv];
 %xlim_1=[0 72/unit_conv]
-%xlim_1=[0 190];
 xtick_spacing=p.interval*3/unit_conv;
 plottime= linspace(0,p.endtime,100);
-
+%xlim_1=[0 190];
 %%%%
 %plot(t_vals_1/unit_conv,c_vals_1(:,1),'-.k','DisplayName','drug amount')
 hold on 

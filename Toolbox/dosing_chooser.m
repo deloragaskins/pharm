@@ -1,4 +1,4 @@
-function [dose_interval, dose_amount,max_dose] = dosing_chooser(derivativefunction, min_effective_conc, max_tolerated_conc,p)    
+function [dose_interval, dose_amount,max_dose] = dosing_chooser(derivativefunction, min_effective_conc, max_tolerated_conc,deriv_params)    
     %required parameters 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %for @derivatives
@@ -29,15 +29,15 @@ function [dose_interval, dose_amount,max_dose] = dosing_chooser(derivativefuncti
 %     doses=[1 2 4 6 8 10]*1000;
 %     doses=2000+ [0 1 2 3 4 5 6 7 8 9 10 ]*100;
 %     doses=2100+[1 2 3 4 5 6 7 8 9 10]*10;
-    doses=2150
+    doses=2150;
     %%%%%%%%%%%%%%%%%%%
     %sweeping for this parameteclosr 
-    max_dose=2150
+    max_dose=2150;
     %%%%%%%%%%%%%%%%
     for initial_dose = doses
-        c0 =[initial_dose,0, 0]
+        c0 =[initial_dose,0, 0];
         options = odeset('RelTol',1e-12, 'AbsTol',[1e-12 1e-12 1e-12]);
-        [t_vals,c_vals]= ode45(derivativefunction, tspan1, c0, options, p)
+        [t_vals,c_vals]= ode45(derivativefunction, tspan1, c0, options, deriv_params);
         
         plot (t_vals,c_vals(:,2),'-k')
         hold on
@@ -45,8 +45,8 @@ function [dose_interval, dose_amount,max_dose] = dosing_chooser(derivativefuncti
         plot (t_vals,c_vals(:,1),'-r')
 
     end
-    plot(plottime,(p.max_tolerated_conc)*ones(size(plottime)),'-c','DisplayName','threshold span')
-    plot(plottime,(p.min_effective_conc)*ones(size(plottime)),'-c','DisplayName','threshold span')
+    plot(plottime,(max_tolerated_conc)*ones(size(plottime)),'-c','DisplayName','threshold span')
+    plot(plottime,(min_effective_conc)*ones(size(plottime)),'-c','DisplayName','threshold span')
     ylim([0 1.1*max_tolerated_conc])
     xlabel('\fontsize{13}Time [hours]')
     ylabel('\fontsize{13}Concentration [mg/L]')
@@ -63,26 +63,16 @@ function [dose_interval, dose_amount,max_dose] = dosing_chooser(derivativefuncti
     dose_interval=24/2;
     dose_amount=max_dose/5;
     %%%%%%%%%%%%%%%%%%%%%%%%
-    t_vals_whole=[];
-    c_vals_whole=[];
-    c0 =[dose_amount,0, 0];
-    tspan2=[0 dose_interval];
-    options = odeset('RelTol',1e-12, 'AbsTol',[1e-12 1e-12 1e-12]);
-  
-    while tspan2(1)<t_end_2
-        [t_vals,c_vals]= ode45(derivativefunction, tspan2, c0, options, p);
-        tspan2 = [t_vals(end) t_vals(end)+dose_interval]; 
-        c0 = [c_vals(end,1)+dose_amount, c_vals(end,2), c_vals(end,3)];
-        t_vals_whole=vertcat(t_vals_whole,t_vals);
-        c_vals_whole=vertcat(c_vals_whole,c_vals);
-    end
-    
+
+    [t_vals_whole, c_vals_whole]=run_dosing_course(derivativefunction,t_end_2,dose_interval,dose_amount,dose_amount,deriv_params); 
+
     plot (t_vals_whole/unit_conv,c_vals_whole(:,2),'-k')
     hold on
     plot (t_vals_whole/unit_conv,c_vals_whole(:,3),'-b')
 
-    plot(plottime2,(p.max_tolerated_conc)*ones(size(plottime2)),'-c','DisplayName','MTC')
-    plot(plottime2,(p.min_effective_conc)*ones(size(plottime2)),'-c','DisplayName','MEC')
+    plot(plottime2,(max_tolerated_conc)*ones(size(plottime2)),'-c','DisplayName','MTC')
+    plot(plottime2,(min_effective_conc)*ones(size(plottime2)),'-c','DisplayName','MEC')
+    
     ylim([0 1.1*max_tolerated_conc])
     xlim(xlim_2)
     xlabel('\fontsize{13}Time [days]')
