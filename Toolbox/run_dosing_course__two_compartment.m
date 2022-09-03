@@ -1,5 +1,5 @@
   
-function [t_vals_whole, c_vals_whole]=run_dosing_course(derivativefunction,t_sim_end,dosing_interval,initial_dose,dose,p)   
+function [t_vals_whole, c_vals_whole]=run_dosing_course__two_compartment(derivativefunction,t_sim_end,dosing_interval,initial_dose,dose,p)   
     %set up integration
     t_vals_whole=[];
     c_vals_whole=[];
