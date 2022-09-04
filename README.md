@@ -1,4 +1,9 @@
 ### D.K. Gaskins' Portfolio
+
+@settings {
+  font-size: 100;
+}
+
 **Codes**
 
 Main file:
