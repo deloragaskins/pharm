@@ -1,14 +1,14 @@
 # D.K. Gaskins' Portfolio
 
 ## Codes
-Note: My coding eniviroment is (MATLAB R2022a with the [curve_fitting_toolbox](https://www.mathworks.com/products/curvefitting.html) and the statistics_toolbox). To run my code, you can download it from GitHub by forking this repository ([How to Fork a Repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo))and ensuring you have the necessary toolboxes from MATLAB. I am always happy to receive any Bug Findings or Feature Requests, though I'm not in any way expecting them. 
+Note: My coding eniviroment is (MATLAB R2022a with the [curve_fitting_toolbox](https://www.mathworks.com/products/curvefitting.html) and the statistics_toolbox). To run my code, you can download it from GitHub by forking this repository ([How to Fork a Repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo)) and ensuring you have the necessary toolboxes from MATLAB. I am always happy to receive any Bug Findings or Feature Requests, though I'm not in any way expecting them. 
 
 ### Main Scripts
 Located in deloragaskins/pharm/
 
 These scripts call functions from the Toolbox folder. A list of the dependancies for each script can be found in the "Supporting Functions and Templates Section". 
 
-1. Noncompartmental Analysis is simple method for fitting key kinetic parameters  and for evaluating the exposure of a drug. I used a one compartmental model to  generate a concentration vs time profile for IV and PO dose administrations and then added noise. I then fit these curves to fit the following values: 
+1. Noncompartmental Analysis is simple method for fitting key kinetic parameters and for evaluating the exposure of a drug. I used a one compartmental model to generate a concentration vs time profile for IV and PO dose administrations and then added noise. I then fit these curves to fit the following values: 
     * k_elim, c_0,  IV_AUC,  Vd, t_half, CL
     * PO_AUC, C_max, t_max, F
 
@@ -18,14 +18,11 @@ These scripts call functions from the Toolbox folder. A list of the dependancies
 
    (code name: _two_comp.sbproj_)
 
-3. Administering a loading dose which is higher than the remainder of the doses administered allows the drug concentration to reach steady state sooner. I designated two different dosing regimens, one with a loading dose and a maintance dose and the other using a constant dose value. The code relies on a supporting function _dosing_choser.m_  which I used to decide the maximum dose, the maintence dose and the dosing frequency. I obtained the concentration profiles for comparison. 
+3. Administering a loading dose which is higher than the remainder of the doses administered allows the drug concentration to reach steady state sooner. I designated two different dosing regimens, one with a loading dose and a maintance dose and the other using a constant dose value. The code relies on a supporting function _dosing_choser.m_ which I used to decide the maximum dose, the maintence dose and the dosing frequency. I obtained the concentration profiles for comparison. 
 
     (code name: _two_dosing_regimes.m_)
     
-4. PK models can be coupled to PD models to determine the
-   physiological/biochemical effect within the body that occurs given 
-   particular dosing regimen. I took a two compartmental model PK model and    
-   coupled it with a Hill equation to show a decreasing in tumor size (n) with a    drug treatment. 
+4. PK models can be coupled to PD models to determine the physiological/biochemical effect within the body that occurs given particular dosing regimen. I took a two compartmental model PK model and coupled it with a Hill equation to show a decreasing in tumor size (n) with a drug treatment. 
    
    (code name: _pk_plus_hill_pd.m_)
 
