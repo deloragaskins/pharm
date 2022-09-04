@@ -1,6 +1,6 @@
 ### D.K. Gaskins' Portfolio
 
-**Codes**
+**Codes-------------------------**
 
 Located in deloragaskins/pharm:
 1. noncompartmental_analysis
@@ -17,6 +17,6 @@ Located in deloragaskins/pharm/Toolbox:
 Sandbox:
 1. compare_dosing_2com
 
-**Written Texts**
+**Written Texts-------------------------**
 1. PH.D. THESIS_gaskins
 2. QUAL_gaskins
