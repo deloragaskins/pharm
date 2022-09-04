@@ -11,10 +11,12 @@ Located in deloragaskins/pharm/
 
 ### Supporting Functions and Templates
 Located in deloragaskins/pharm/Toolbox
-1. DERIVS_2comp_LinearAbs_Linear_Elim__rate_constants
-2. dosing chooser
-3. PLOT_sample_figure_codeblock
-4. run_dosing_course.m
+* (DERIVS_2comp_LinearAbs_Linear_Elim__rate_constants.m)
+* (DERIVS_2comp_LinearAbs_Linear_Elim__rate_constants_hill)
+
+* dosing chooser
+* PLOT_sample_figure_codeblock
+* run_dosing_course.m
 
 ## Written Texts
 1. PH.D. THESIS_gaskins
