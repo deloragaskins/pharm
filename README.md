@@ -9,8 +9,8 @@ Located in deloragaskins/pharm/
 These scripts call functions from the Toolbox folder. A list of the dependancies for each script can be found in the "Supporting Functions and Templates Section". 
 
 1. Noncompartmental Analysis is simple method for fitting key kinetic parameters  and for evaluating the exposure of a drug. I used a one compartmental model to  generate a concentration vs time profile for IV and PO dose administrations and then added noise. I then fit these curves to fit the following values: 
-* k_elim, c_0,  IV_AUC,  Vd, t_half, CL
-* PO_AUC, C_max, t_max, F
+    * k_elim, c_0,  IV_AUC,  Vd, t_half, CL
+    * PO_AUC, C_max, t_max, F
 
   (code name: _noncompartmental_analysis.m_)
  
