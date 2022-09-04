@@ -3,7 +3,7 @@
 ## Codes
 
 ### Main Scripts
-Located in deloragaskins/pharm/Toolbox
+Located in deloragaskins/pharm/
 1. noncompartmental_analysis
 2. two_comp
 3. two_dosing_regimes
