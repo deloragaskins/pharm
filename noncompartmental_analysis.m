@@ -1,4 +1,9 @@
 function noncompartmental_analysis()
+
+addpath(genpath('./Toolbox')) %required for dosing chooser and derivatives function
+derivativefunction=@DERIVS_1comp_LinearAbs_Linear_Elim__rate_constants;
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %parameters
@@ -9,7 +14,7 @@ dg.dose_PO=25
 dg.Vd=1
 dg.k_elim= 0.5;
 dg.ka=1
-dg.c_0=15
+dg.c_0=15;
 dg.sampling_times=horzcat([15/60:15/60:1],[1.5:30/60:6]);
 dg.noise_on=1
 dg.mu=0
@@ -35,7 +40,7 @@ pk.F=[];
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %generate data 
 [t1,y1]= concentration_profile_IV(dg);
-[t2,y2] = concentration_profile_PO(dg);
+[t2,y2] = concentration_profile_PO(derivativefunction,dg);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %fit IV curve and calculate pk params
@@ -125,11 +130,11 @@ function [t,y] = concentration_profile_IV(params)
     end
 end
 
-function [t,y] = concentration_profile_PO(params)
+function [t,y] = concentration_profile_PO(derivativefunction,params)
     y_0 =[params.dose_PO 0]; 
     options = odeset('RelTol',1e-12, 'AbsTol',[1e-12 1e-12]);
     tspan=params.sampling_times
-    [t,y]= ode45(@derivatives, tspan, y_0, options, params);
+    [t,y]= ode45(derivativefunction, tspan, y_0, options, params);
     if params.noise_on==1
         rng(2,'twister');
         y=y+0.7*normrnd(params.mu,params.sigma2,size(y))
@@ -192,10 +197,5 @@ function fitted_params=IV_curve_fitter(t,y)
     ylabel('\fontsize{13}Concentration [mg/L]')
     saveas(gcf,'noncompartmental_analysis_plot.png')
 
-end
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function dydt = derivatives(t, y, params)
-dydt = [-params.ka*y(1), 
-         params.ka*y(1) - params.k_elim*y(2) ];
 end
 

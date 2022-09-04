@@ -50,7 +50,7 @@ xtick_spacing=p.interval*3/unit_conv;
 
 subplot(4, 1, 1:2)
 
-plot(t_vals_whole/unit_conv,y_vals_whole(:,1),'-.b','DisplayName','compartment 1 concentration')
+plot(t_vals_whole/unit_conv,y_vals_whole(:,2),'-.b','DisplayName','compartment 1 concentration')
 hold on 
 % plot(t_vals_whole/unit_conv,y_vals_whole(:,2),'-b','DisplayName','compartment 2 concentration')
 xlim(xlim_1);

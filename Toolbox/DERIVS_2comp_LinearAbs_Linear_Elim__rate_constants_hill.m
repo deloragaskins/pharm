@@ -20,7 +20,7 @@ c1=y(2);
 c2=y(3);
 n=y(4);
 
-kn_kill=HillEffect(p.n_factor*y(1),0,p.kn_killmax,p.kn_kill50,1);
+kn_kill=Hill_Effect(p.n_factor*y(2),0,p.kn_killmax,p.kn_kill50,1);
 
 dydt = [ - 1*p.ka*a, 
           p.F*p.ka*(a/p.V1) - p.k_elim*c1 - p.k12*c1*p.V1 + p.k21*c2*p.V2/p.V1,        
