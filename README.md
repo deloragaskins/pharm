@@ -1,9 +1,4 @@
 ### D.K. Gaskins' Portfolio
-
-**Written Texts**
-1. PH.D. THESIS_gaskins
-2. QUAL_gaskins
-
 **Codes**
 
 Main file:
@@ -21,3 +16,7 @@ Toolbox:
 2. dosing chooser
 3. PLOT_sample_figure_codeblock
 4. run_dosing_course.m
+
+**Written Texts**
+1. PH.D. THESIS_gaskins
+2. QUAL_gaskins
