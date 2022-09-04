@@ -16,12 +16,18 @@ These scripts call functions from the Toolbox folder. A list of the dependancies
  
 2. Symbiology is a commonly used program in PK/PD and QSP circles. To obtain familiarity with the model builder and analyzer, I took data from 'Concepts in Clinical Pharmacokinetics'( ISBN: 978-1-58528-591-4, Page 89 Problem 6-9) and used a two variable model from the PK library to fit the clearances and the compartment volumes. 
 
-  (code name: _two_comp.sbproj_)
+   (code name: _two_comp.sbproj_)
 
 3. Administering a loading dose which is higher than the remainder of the doses administered allows the drug concentration to reach steady state sooner. I designated two different dosing regimens, one with a loading dose and a maintance dose and the other using a constant dose value. The code relies on a supporting function _dosing_choser.m_  which I used to decide the maximum dose, the maintence dose and the dosing frequency. I obtained the concentration profiles for comparison. 
 
-  (code name: _two_dosing_regimes.m_)
-4. (code name:_pk_plus_hill_pd.m_ )
+    code name: _two_dosing_regimes.m_)
+    
+4. PK models can be coupled to PD models to determine the
+   physiological/biochemical effect within the body that occurs given 
+   particular dosing regimen. I took a two compartmental model PK model and    
+   coupled it with a Hill equation to show a decreasing in tumor size (n) with a    drug treatment. 
+   
+   (code name: _pk_plus_hill_pd.m_)
 
 ### Supporting Functions and Templates
 Located in deloragaskins/pharm/Toolbox
