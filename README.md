@@ -8,15 +8,19 @@ Located in deloragaskins/pharm/
 
 These scripts call functions from the Toolbox folder. A list of the dependancies for each script can be found in the "Supporting Functions and Templates Section". 
 
-1. Noncompartmental Analysis is simple method for fitting key kinetic parameters  and for evaluating the exposure of a drug. A one compartmental model is used to generate a concentration vs time profile for IV and PO dose administrations and noise is added to the concentration values. These curves are then used to fit the following values: 
+1. Noncompartmental Analysis is simple method for fitting key kinetic parameters  and for evaluating the exposure of a drug. I used a one compartmental model to  generate a concentration vs time profile for IV and PO dose administrations and then added noise. I then fit these curves to fit the following values: 
 * k_elim, c_0,  IV_AUC,  Vd, t_half, CL
 * PO_AUC, C_max, t_max, F
+
   (code name: _noncompartmental_analysis.m_)
  
 2. Symbiology is a commonly used program in PK/PD and QSP circles. To obtain familiarity with the model builder and analyzer, I took data from 'Concepts in Clinical Pharmacokinetics'( ISBN: 978-1-58528-591-4, Page 89 Problem 6-9) and used a two variable model from the PK library to fit the clearances and the compartment volumes. 
+
   (code name: _two_comp.sbproj_)
 
-3. (code name: _two_dosing_regimes.m_)
+3. Administering a loading dose which is higher than the remainder of the doses administered allows the drug concentration to reach steady state sooner. I designated two different dosing regimens, one with a loading dose and a maintance dose and the other using a constant dose value. The code relies on a supporting function _dosing_choser.m_  which I used to decide the maximum dose, the maintence dose and the dosing frequency. I obtained the concentration profiles for comparison. 
+
+  (code name: _two_dosing_regimes.m_)
 4. (code name:_pk_plus_hill_pd.m_ )
 
 ### Supporting Functions and Templates
@@ -28,7 +32,7 @@ Located in deloragaskins/pharm/Toolbox
   
 * [DATA VISUALIZATION] The main scripts often utilize plots to be used at runtime by the user (e.g. to deterimine constants) or for data display purposes. The code "PLOT_sample_figure_codeblock.m" can be used as a reference when building customized figures. 
 
-The following list indicates the main files and the files from the toolbox which support them. 
+The following list indicates the main files and the functions from the toolbox which support them. 
 
 1. noncompartmental_analysis.m 
    1. DERIVS_1comp_LinearAbs_Linear_Elim__rate_constants.m
