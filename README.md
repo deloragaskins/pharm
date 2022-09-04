@@ -49,6 +49,5 @@ The following list indicates the main files and the functions from the toolbox w
    3. Hill_Effect.m
 4. no main file: PLOT_sample_figure_codeblock.m
 
-## Written Texts
-1. PH.D. THESIS_gaskins
-2. QUAL_gaskins
+## THESIS and QUALIFYING EXAM
+I uploaded my Ph.D. thesis (PH.D. THESIS_gaskins.pdf) and my qualifying exam (QUAL_gaskins.pdf) here for your perusal. 
