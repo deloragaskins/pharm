@@ -1,7 +1,9 @@
 # D.K. Gaskins' Portfolio
 
 ## Codes
-** Note: Development Environment (MATLAB R2022a with curve_fitting_toolbox, statistics_toolbox)
+Note: My coding eniviroment is (MATLAB R2022a with [curve_fitting_toolbox](https://www.mathworks.com/products/curvefitting.html), statistics_toolbox)
+To run my code, you can download it from GitHub by forking this repository [How to Fork a Repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo)
+and ensuring you have the necessary toolboxes from MATLAB) 
 
 ### Main Scripts
 Located in deloragaskins/pharm/
