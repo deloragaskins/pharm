@@ -69,7 +69,7 @@ xlim(xlim_1);
 xticks(xlim_1(1):xtick_spacing:xlim_1(2))
 
 
-title( '___')
+title( ' ')
 legend('Location','southeast')
 xlabel('\fontsize{13}Time [day]')
 ylabel('\fontsize{13} n')
